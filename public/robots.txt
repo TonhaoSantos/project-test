@@ -1,0 +1,8 @@
+# Warning: Crawling this site is prohibited unless you have express written permission.
+# Aviso: Crawling este site é proibido a menos que tenha permissão expressa por escrito.
+# Contact: contato@domain.com
+
+User-agent: *
+Sitemap: https://www.domain.com.br/sitemap.xml
+Disallow: /404
+allow: /img

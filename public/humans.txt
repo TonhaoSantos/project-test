@@ -1,0 +1,22 @@
+/* TEAM */
+	Hobby 1, Hobby 2, Hobby 3 and ...: People Name.
+	Site: domain.com.br
+	Twitter: @name
+	Location: São Paulo, Brasil.
+
+
+/* THANKS */
+	Name: Name 1
+
+	Name: Name 2
+
+	Name: Name 3
+
+
+/* SITE */
+	Last update: 2023/01/01
+	Language: Portugues
+	Doctype: HTML5
+	Web Languages: HTML5, CSS3, Javascript
+	Components: Nuxt 3, Vue.js, etc
+	Tools: Adobe Photoshop, Figma, VSCode

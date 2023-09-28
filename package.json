@@ -7,10 +7,22 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "lint:project": "eslint --ext \".ts,.vue\" --ignore-path .gitignore .",
+    "analyze:packeages": "npx nuxi analyze",
+    "nuxt:upgrade": "npx nuxi upgrade --force"
   },
   "devDependencies": {
     "@nuxt/devtools": "latest",
+    "@nuxtjs/eslint-config-typescript": "^12.1.0",
+    "@nuxtjs/eslint-module": "^4.1.0",
+    "@typescript-eslint/parser": "^6.7.3",
+    "eslint": "^8.50.0",
+    "eslint-plugin-vue": "^9.17.0",
     "nuxt": "^3.7.4"
+  },
+  "dependencies": {
+    "@pinia/nuxt": "^0.4.11",
+    "sass": "^1.68.0"
   }
 }
