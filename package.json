@@ -22,7 +22,11 @@
     "nuxt": "^3.7.4"
   },
   "dependencies": {
+    "@amcharts/amcharts5": "^5.4.8",
+    "@amcharts/amcharts5-fonts": "^5.0.1",
+    "@amcharts/amcharts5-geodata": "^5.1.1",
     "@pinia/nuxt": "^0.4.11",
+    "axios": "^1.5.1",
     "sass": "^1.68.0"
   }
 }

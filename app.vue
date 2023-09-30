@@ -21,9 +21,6 @@ useHead({
   title: 'Default Title',
   titleTemplate: (titleChunk) => {
     return titleChunk ? `${titleChunk} | ${appName}` : `${appName}`;
-  },
-  htmlAttrs: {
-    lang: 'pt-BR',
-  },
+  }
 })
 </script>

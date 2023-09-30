@@ -5,9 +5,7 @@
 </template>
 
 <script setup>
-// Envs
-const config = useRuntimeConfig()
-const baseUrl = config.public.baseUrl
+const { getEnvValue } = useEnvs()
 
 // Head
 useHead({
@@ -15,7 +13,7 @@ useHead({
   meta: [
     { name: 'description', content: 'About page description' }
   ],
-  link: [{ rel: 'canonical', href: `${baseUrl}/about` }],
+  link: [{ rel: 'canonical', href: `${getEnvValue('baseUrl')}/about` }],
 })
 </script>
 

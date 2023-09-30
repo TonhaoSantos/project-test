@@ -38,7 +38,9 @@ export default defineNuxtConfig({
     public: {
       appName: process.env.NUXT_PUBLIC_APP_NAME,
       baseUrl: process.env.NUXT_PUBLIC_BASE_URL,
-      domain: process.env.NUXT_PUBLIC_DOMAIN
+      domain: process.env.NUXT_PUBLIC_DOMAIN,
+      apiRestCountries: process.env.NUXT_PUBLIC_API_REST_COUNTRIES,
+      apiRestCountriesVersion: process.env.NUXT_PUBLIC_API_REST_COUNTRIES_VERSION
     }
   },
 })
