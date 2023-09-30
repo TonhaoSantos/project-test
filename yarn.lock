@@ -1876,6 +1876,11 @@
   resolved "https://registry.yarnpkg.com/@vitejs/plugin-vue/-/plugin-vue-4.3.4.tgz#a289dff38e01949fe7be581d5542cabaeb961dec"
   integrity sha512-ciXNIHKPriERBisHFBvnTbfKa6r9SAesOYXeGDzgegcvy9Q4xdScSHAmKbNT0M3O0S9LKhIf5/G+UYG4NnnzYw==
 
+"@vlalg-nimbus/magic-consolelog@^2.0.3":
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/@vlalg-nimbus/magic-consolelog/-/magic-consolelog-2.0.3.tgz#84869dbb1782f3d6c11f18fb6b4183de7760e2c5"
+  integrity sha512-IIuo14lRgpcGidI9Mgn/1JcaNGefhn6uVi7zZVQ59aUozGBqGo8qWoL9h5AKGYQo8NOSUrdB5azl5HLlMW9Mfg==
+
 "@vue-macros/common@^1.8.0":
   version "1.8.0"
   resolved "https://registry.yarnpkg.com/@vue-macros/common/-/common-1.8.0.tgz#885f1e7095b3b4e32773a35fd8f768f82a6c0e5c"

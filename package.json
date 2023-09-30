@@ -26,6 +26,7 @@
     "@amcharts/amcharts5-fonts": "^5.0.1",
     "@amcharts/amcharts5-geodata": "^5.1.1",
     "@pinia/nuxt": "^0.4.11",
+    "@vlalg-nimbus/magic-consolelog": "^2.0.3",
     "axios": "^1.5.1",
     "sass": "^1.68.0"
   }
