@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Menu />
+    <Menu menuType="site" />
     <slot/>
   </div>
 </template>

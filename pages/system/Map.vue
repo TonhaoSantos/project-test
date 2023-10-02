@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>About</h1>
+    <h1>Map</h1>
   </div>
 </template>
 
@@ -9,11 +9,11 @@ const { getEnvValue } = useEnvs()
 
 // Head
 useHead({
-  title: 'About',
+  title: 'Map',
   meta: [
-    { name: 'description', content: 'About page description' }
+    { name: 'description', content: 'Map page description' }
   ],
-  link: [{ rel: 'canonical', href: `${getEnvValue('baseUrl')}/about` }],
+  link: [{ rel: 'canonical', href: `${getEnvValue('baseUrl')}/map` }],
 })
 </script>
 

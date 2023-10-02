@@ -10,10 +10,20 @@
 </template>
 
 <script setup>
-import menu from '../configs/menu'
+import { systemMenu, siteMenu } from '../configs/menu'
+
+const { menuType } = defineProps({
+  menuType: {
+    type: String,
+    default: 'site',
+    validator(value) {
+        return ['system', 'site'].includes(value)
+    }
+  }
+})
 
 const menuList = computed(() => {
-  return menu
+  return (menuType === 'site') ? siteMenu : systemMenu
 })
 </script>
 
