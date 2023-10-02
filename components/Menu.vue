@@ -3,7 +3,7 @@
     v-for="(menuItem, index) in menuList"
     :key="index"
     :to="menuItem.route"
-    class="menu"
+    class="hover:text-sky-500"
   >
   {{ menuItem.name }}
   </NuxtLink>
@@ -28,7 +28,4 @@ const menuList = computed(() => {
 </script>
 
 <style>
-.menu {
-  padding: 0 10px;
-}
 </style>

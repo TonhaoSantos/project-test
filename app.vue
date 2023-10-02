@@ -1,6 +1,6 @@
 <template>
   <NuxtLayout>
-    <Body>
+    <Body class="bg-slate-200 text-slate-700">
       <!--[if lt IE 10]>
         <p class="browserupgrade">Você esta usando um navegador <strong>desatualizado</strong>. Por favor, <a href="http://browsehappy.com/" target="_blank">atualize seu navegador</a> para melhorar a sua experiência.</p>
       <![endif]-->

@@ -26,3 +26,30 @@ export const itIsObject = (obj: any) => {
 export const objectHasKey = (obj: any = {}, key: string) => {
   return !!Object.prototype.hasOwnProperty.call(obj, key)
 }
+
+/**
+ * 
+*/
+export const validateWordCount = (text: string = '', requiredWordCount: number = 1, type: string = 'eq'): boolean => {
+  const validTypes = ['lt', 'lte', 'eq', 'gte', 'gt']
+
+  if (!text || requiredWordCount <= 0 || !type || !validTypes.includes(type)) return false
+
+  const currentText = text.trim()
+  const splittedText = currentText.split(' ')
+  const textLength = splittedText.length
+
+  if (type === 'lt' && textLength < requiredWordCount) {
+    return true
+  } else if (type === 'lte' && textLength <= requiredWordCount) {
+    return true
+  } else if (type === 'eq' && textLength === requiredWordCount) {
+    return true
+  } else if (type === 'gte' && textLength >= requiredWordCount) {
+    return true
+  } else if (type === 'gt' && textLength > requiredWordCount) {
+    return true
+  } else {
+    return false
+  }
+}

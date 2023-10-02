@@ -13,7 +13,8 @@ export default defineNuxtConfig({
     '@locales': resolve(__dirname, './locales')
   },
   modules: [
-    '@pinia/nuxt'
+    '@pinia/nuxt',
+    '@nuxt/ui'
   ],
   app: { 
     head: {
