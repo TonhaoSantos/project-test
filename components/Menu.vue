@@ -1,16 +1,33 @@
 <template>
-  <NuxtLink
-    v-for="(menuItem, index) in menuList"
-    :key="index"
-    :to="menuItem.route"
-    class="hover:text-sky-500"
-  >
-  {{ menuItem.name }}
-  </NuxtLink>
+  <div class="flex gap-x-7">
+    <NuxtLink
+      v-for="(menuItem, index) in menuList"
+      :key="index"
+      :to="menuItem.route"
+      class="hover:text-sky-500"
+    >
+    {{ menuItem.name }}
+    </NuxtLink>
+
+    <UButton
+      v-if="isLoggedIn"
+      color="sky"
+      variant="solid"
+      size="xs"
+      label="Logout"
+      class="ml-4"
+      @click="logout"
+    />
+  </div>
 </template>
 
 <script setup>
 import { systemMenu, siteMenu } from '../configs/menu'
+
+import { useLoginStore } from '@/stores/login'
+import { storeToRefs } from 'pinia'
+const loginStore = useLoginStore()
+const { isLoggedIn } = storeToRefs(loginStore)
 
 const { menuType } = defineProps({
   menuType: {
@@ -23,8 +40,14 @@ const { menuType } = defineProps({
 })
 
 const menuList = computed(() => {
-  return (menuType === 'site') ? siteMenu : systemMenu
+  return (menuType === 'site' && !isLoggedIn.value) ? siteMenu : systemMenu
 })
+
+const logout = () => {
+  loginStore.changeLogged(false)
+  navigateTo('/')
+}
+
 </script>
 
 <style>

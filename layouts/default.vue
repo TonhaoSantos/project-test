@@ -4,7 +4,7 @@
       <Menu />
     </div>
 
-    <div class="flex flex-row flex-wrap w-full pl-10 pr-10 pt-20 pb-40 bg-slate-200 text-slate-700">
+    <div class="flex flex-row flex-wrap w-full pl-10 pr-10 pt-20 bg-slate-200 text-slate-700">
       <slot/>
     </div>
   </div>

@@ -332,6 +332,14 @@
     "@babel/helper-plugin-utils" "^7.22.5"
     "@babel/plugin-syntax-typescript" "^7.22.5"
 
+"@babel/runtime-corejs3@^7.22.6":
+  version "7.23.1"
+  resolved "https://registry.yarnpkg.com/@babel/runtime-corejs3/-/runtime-corejs3-7.23.1.tgz#d03f5819f4ba81a21dd1f80edfb19983e9e20fc1"
+  integrity sha512-OKKfytwoc0tr7cDHwQm0RLVR3y+hDGFz3EPuvLNU/0fOeXJeKNIHj7ffNVFnncWt3sC58uyUCRSzf8nBQbyF6A==
+  dependencies:
+    core-js-pure "^3.30.2"
+    regenerator-runtime "^0.14.0"
+
 "@babel/standalone@^7.22.9":
   version "7.23.1"
   resolved "https://registry.yarnpkg.com/@babel/standalone/-/standalone-7.23.1.tgz#d91957e5d32a335e66764546dd3c19ebd7240c0c"
@@ -1363,6 +1371,15 @@
     "@parcel/watcher-win32-arm64" "2.3.0"
     "@parcel/watcher-win32-ia32" "2.3.0"
     "@parcel/watcher-win32-x64" "2.3.0"
+
+"@pinia-plugin-persistedstate/nuxt@^1.1.2":
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/@pinia-plugin-persistedstate/nuxt/-/nuxt-1.1.2.tgz#26a34fd0367516c3c7c17b8fbd237789ce99b393"
+  integrity sha512-3deRNiIlFoFGO/K8Sz+yc53ayMzElR8ack7RnGka80zBgp6Fs9GWjoLJiy+ToIc7qVa6wrQcoLDsxcnvzX4T0g==
+  dependencies:
+    "@nuxt/kit" "^3.7.3"
+    defu "^6.1.2"
+    pinia-plugin-persistedstate ">=3.2.0"
 
 "@pinia/nuxt@^0.4.11":
   version "0.4.11"
@@ -2729,6 +2746,11 @@ braces@^3.0.2, braces@~3.0.2:
   dependencies:
     fill-range "^7.0.1"
 
+brazilian-values@^0.13.0:
+  version "0.13.0"
+  resolved "https://registry.yarnpkg.com/brazilian-values/-/brazilian-values-0.13.0.tgz#4cce261cea05270a8b710d1bcd15d84e10dff6b0"
+  integrity sha512-gpEgD2+LUh0irOj2EfQsGm1uRcX+Pb+1qSLJtUYFUVkJi+NUc0uGa0TWDof36d0D+jrQpP4h8Vi5GIhT6bmjzw==
+
 brfs@^2.0.0, brfs@^2.0.2:
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/brfs/-/brfs-2.0.2.tgz#44237878fa82aa479ce4f5fe2c1796ec69f07845"
@@ -3174,6 +3196,11 @@ cookies@~0.8.0:
   dependencies:
     depd "~2.0.0"
     keygrip "~1.1.0"
+
+core-js-pure@^3.30.2:
+  version "3.33.0"
+  resolved "https://registry.yarnpkg.com/core-js-pure/-/core-js-pure-3.33.0.tgz#938a28754b4d82017a7a8cbd2727b1abecc63591"
+  integrity sha512-FKSIDtJnds/YFIEaZ4HszRX7hkxGpNKM7FC9aJ9WLJbSd3lD4vOltFuVIBLR8asSx9frkTSqL0dw90SKQxgKrg==
 
 core-util-is@~1.0.0:
   version "1.0.3"
@@ -5338,6 +5365,13 @@ image-meta@^0.1.1:
   resolved "https://registry.yarnpkg.com/image-meta/-/image-meta-0.1.1.tgz#a84dc7d5f61c7d60e85ec0c3ac81beee8646039b"
   integrity sha512-+oXiHwOEPr1IE5zY0tcBLED/CYcre15J4nwL50x3o0jxWqEkyjrusiKP3YSU+tr9fvJp33ZcP5Gpj2295g3aEw==
 
+imask@^7.1.3:
+  version "7.1.3"
+  resolved "https://registry.yarnpkg.com/imask/-/imask-7.1.3.tgz#d07e6f50effe353630323a58baf25c2f7a83c2eb"
+  integrity sha512-jZCqTI5Jgukhl2ff+znBQd8BiHOTlnFYCIgggzHYDdoJsHmSSWr1BaejcYBxsjy4ZIs8Rm0HhbOxQcobcdESRQ==
+  dependencies:
+    "@babel/runtime-corejs3" "^7.22.6"
+
 immutable@^4.0.0:
   version "4.3.4"
   resolved "https://registry.yarnpkg.com/immutable/-/immutable-4.3.4.tgz#2e07b33837b4bb7662f288c244d1ced1ef65a78f"
@@ -7207,6 +7241,11 @@ pify@^2.3.0:
   resolved "https://registry.yarnpkg.com/pify/-/pify-2.3.0.tgz#ed141a6ac043a849ea588498e7dca8b15330e90c"
   integrity sha512-udgsAY+fTnvv7kI7aaxbqwWNb0AHiB0qBO89PZKPkoTmGOgdbrHDKD+0B2X4uTfJ/FT1R09r9gTsjUjNJotuog==
 
+pinia-plugin-persistedstate@>=3.2.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/pinia-plugin-persistedstate/-/pinia-plugin-persistedstate-3.2.0.tgz#9932ca2ae88aa6c0d6763bebc6447d7bd1f097d0"
+  integrity sha512-tZbNGf2vjAQcIm7alK40sE51Qu/m9oWr+rEgNm/2AWr1huFxj72CjvpQcIQzMknDBJEkQznCLAGtJTIcLKrKdw==
+
 pinia@>=2.1.0:
   version "2.1.6"
   resolved "https://registry.yarnpkg.com/pinia/-/pinia-2.1.6.tgz#e88959f14b61c4debd9c42d0c9944e2875cbe0fa"
@@ -7806,6 +7845,11 @@ redis-parser@^3.0.0:
   integrity sha512-DJnGAeenTdpMEH6uAJRK/uiyEIH9WVsUmoLwzudwGJUwZPp80PDBWPHXSAGNPwNvIXAbe7MSUB1zQFugFml66A==
   dependencies:
     redis-errors "^1.0.0"
+
+regenerator-runtime@^0.14.0:
+  version "0.14.0"
+  resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.14.0.tgz#5e19d68eb12d486f797e15a3c6a918f7cec5eb45"
+  integrity sha512-srw17NI0TUWHuGa5CFGGmhfNIeja30WMBfbslPNhf6JrqQlLN5gcrvig1oqPxiVaXb0oW0XRKtH6Nngs5lKCIA==
 
 regexp-tree@^0.1.24, regexp-tree@~0.1.1:
   version "0.1.27"
@@ -9267,7 +9311,7 @@ vue-bundle-renderer@^2.0.0:
   dependencies:
     ufo "^1.2.0"
 
-vue-demi@>=0.14.5:
+vue-demi@>=0.14.5, vue-demi@^0.14.5:
   version "0.14.6"
   resolved "https://registry.yarnpkg.com/vue-demi/-/vue-demi-0.14.6.tgz#dc706582851dc1cdc17a0054f4fec2eb6df74c92"
   integrity sha512-8QA7wrYSHKaYgUxDA5ZC24w+eHm3sYCbp0EzcDwKqN3p6HqtTCGR/GVsPyZW92unff4UlcSh++lmqDWN3ZIq4w==
@@ -9289,6 +9333,14 @@ vue-eslint-parser@^9.3.1:
     esquery "^1.4.0"
     lodash "^4.17.21"
     semver "^7.3.6"
+
+vue-imask@^7.1.3:
+  version "7.1.3"
+  resolved "https://registry.yarnpkg.com/vue-imask/-/vue-imask-7.1.3.tgz#f0f1710d02c4f594fcd385e5d8e9aeb39f6b07ba"
+  integrity sha512-WkkEwx34UjNJhN5vwgfLNgydLoqyFxBGJibT2322Extl68kW6YHQrFIusLeEZ4EVGzmv2zWhuxXxke55I2x4Dw==
+  dependencies:
+    imask "^7.1.3"
+    vue-demi "^0.14.5"
 
 vue-router@^4.2.5:
   version "4.2.5"

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="mb-10">
     <h1 class="text-5xl font-black mb-6">{{ getEnvValue('appName') }}</h1>
 
     <p><span class="font-bold">Finalization limit:</span> 7 consecutive days</p>
@@ -14,6 +14,8 @@
         <ul class="list-disc list-inside ml-6">
           <li><a href="https://www.npmjs.com/package/@vlalg-nimbus/magic-consolelog" targe="_black" class="text-blue-600 hover:text-sky-500">magic-consolelog</a></li>
           <li><a href="https://www.amcharts.com/" targe="_black" class="text-blue-600 hover:text-sky-500">amCharts</a></li>
+          <li><a href="https://github.com/VitorLuizC/brazilian-values#isCPF" targe="_black" class="text-blue-600 hover:text-sky-500">Brazilian Values</a></li>
+          <li><a href="https://github.com/vuejs-tips/vue-the-mask" targe="_black" class="text-blue-600 hover:text-sky-500">vue-the-mask</a></li>
         </ul>
       </li>
     </ul>

@@ -14,7 +14,9 @@ export default defineNuxtConfig({
   },
   modules: [
     '@pinia/nuxt',
-    '@nuxt/ui'
+    '@nuxt/ui',
+    '@pinia/nuxt',
+    '@pinia-plugin-persistedstate/nuxt',
   ],
   app: { 
     head: {
@@ -41,7 +43,8 @@ export default defineNuxtConfig({
       baseUrl: process.env.NUXT_PUBLIC_BASE_URL,
       domain: process.env.NUXT_PUBLIC_DOMAIN,
       apiRestCountries: process.env.NUXT_PUBLIC_API_REST_COUNTRIES,
-      apiRestCountriesVersion: process.env.NUXT_PUBLIC_API_REST_COUNTRIES_VERSION
+      apiRestCountriesVersion: process.env.NUXT_PUBLIC_API_REST_COUNTRIES_VERSION,
+      apiViaCep: process.env.NUXT_PUBLIC_API_REST_VIA_CEP
     }
-  },
+  }
 })

@@ -1,5 +1,11 @@
 export const systemMenu = [
   {
+    name: 'Home',
+    routeName: 'index',
+    route: '/',
+    i18n: 'home'
+  },
+  {
     name: 'Search',
     routeName: 'Search',
     route: '/system/search',

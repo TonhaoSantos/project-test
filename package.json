@@ -16,6 +16,7 @@
     "@nuxt/devtools": "latest",
     "@nuxtjs/eslint-config-typescript": "^12.1.0",
     "@nuxtjs/eslint-module": "^4.1.0",
+    "@pinia-plugin-persistedstate/nuxt": "^1.1.2",
     "@typescript-eslint/parser": "^6.7.3",
     "autoprefixer": "^10.4.16",
     "eslint": "^8.50.0",
@@ -31,6 +32,8 @@
     "@pinia/nuxt": "^0.4.11",
     "@vlalg-nimbus/magic-consolelog": "^2.0.3",
     "axios": "^1.5.1",
-    "sass": "^1.68.0"
+    "brazilian-values": "^0.13.0",
+    "sass": "^1.68.0",
+    "vue-imask": "^7.1.3"
   }
 }
