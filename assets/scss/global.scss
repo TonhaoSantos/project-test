@@ -8,3 +8,23 @@
 @import './pages/glob';
 @import './themes/glob';
 @import './vendors/glob';
+
+.changed-input-color {
+  label {
+    div {
+      p.block {
+        color: rgb(51 65 85 / var(--tw-text-opacity));
+      }
+    }
+  }
+  input {
+    &.form-input {
+      color: rgb(51 65 85 / var(--tw-text-opacity));
+    }
+  }
+  select {
+    &.form-select {
+      color: rgb(51 65 85 / var(--tw-text-opacity));
+    }
+  }
+}

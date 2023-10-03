@@ -216,11 +216,6 @@
       <p class="text-xs mt-1 text-right italic">All fields are required</p>
     </UForm>
 
-    <UButton
-      label="Open"
-      @click="isOpen = true"
-    />
-
     <UModal
       v-model="isOpen"
       prevent-close
@@ -435,27 +430,6 @@ watch(computedState, async (newValue, oldValue) => {
 })
 </script>
 
-<style lang="scss">
-.changed-input-color {
-  label {
-    div {
-      p.block {
-        color: rgb(51 65 85 / var(--tw-text-opacity));
-      }
-    }
-  }
-  input {
-    &.form-input {
-      color: rgb(51 65 85 / var(--tw-text-opacity));
-    }
-  }
-  select {
-    &.form-select {
-      color: rgb(51 65 85 / var(--tw-text-opacity));
-    }
-  }
-}
-</style>
 <style lang="scss" scoped>
 </style>
 

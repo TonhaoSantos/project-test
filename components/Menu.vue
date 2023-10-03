@@ -25,9 +25,14 @@
 import { systemMenu, siteMenu } from '../configs/menu'
 
 import { useLoginStore } from '@/stores/login'
+import { useCountriesStore } from '@/stores/countries'
 import { storeToRefs } from 'pinia'
+
 const loginStore = useLoginStore()
 const { isLoggedIn } = storeToRefs(loginStore)
+
+const countriesStore = useCountriesStore()
+const { hasCountries } = storeToRefs(countriesStore)
 
 const { menuType } = defineProps({
   menuType: {
@@ -40,7 +45,20 @@ const { menuType } = defineProps({
 })
 
 const menuList = computed(() => {
-  return (menuType === 'site' && !isLoggedIn.value) ? siteMenu : systemMenu
+  console.log(hasCountries.value)
+  if (menuType === 'site' && !isLoggedIn.value) {
+    return siteMenu
+  } else {
+    if (hasCountries.value) return systemMenu
+
+    const newList = []
+
+    systemMenu.forEach(item => {
+      if (item.name !== 'Map') newList.push(item)
+    })
+
+    return newList
+  }
 })
 
 const logout = () => {

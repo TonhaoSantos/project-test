@@ -1,10 +1,22 @@
 <template>
-  <div>
-    <h1>Map</h1>
+  <div class="flex flex-col flex-wrap justify-left items-left w-full mb-10">
+    <h1 class="text-5xl font-black mb-12">
+      MAP
+    </h1>
+
+    <ClientOnly>
+      <ChartMap v-if="hasCountries" :list="countries"/>
+    </ClientOnly>
   </div>
 </template>
 
 <script setup>
+import { storeToRefs } from 'pinia'
+import { useCountriesStore } from '@/stores/countries'
+const countriesStore = useCountriesStore()
+
+const { hasCountries, countries } = storeToRefs(countriesStore)
+
 const { getEnvValue } = useEnvs()
 
 // Head

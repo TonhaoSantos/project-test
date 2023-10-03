@@ -1,44 +1,72 @@
 <template>
-  <div>
-    <h1>Search</h1>
-    
-    <h1>Lista</h1>
+  <div class="flex flex-col flex-wrap justify-left items-left w-full mb-10">
+    <h1 class="text-5xl font-black mb-12">
+      Search
+      <span v-if="hasCountries" class="text-sm">({{ listCountries.length }} items)</span>
+    </h1>
 
     <ClientOnly>
-      <ChartMap v-if="!pending && listCountries" :list="mapList"/>
+      <div class="flex flex-row flex-no-wrap justify-left items-start w-full mb-4">
+        <UInput
+          v-if="!pending"
+          ref="inputFilter"
+          color="sky"
+          variant="outline"
+          size="sm"
+          type="text"
+          v-model="searchText"
+          placeholder="Type the country name to filter"
+          @input="handleInput"
+          class="w-1/3 changed-input-color"
+        />
 
-      <input
-        v-if="!pending"
-        v-model="searchText"
-        type="text"
-        ref="inputFilter"
-        @input="handleInput"
-        placeholder="Digite para filtrar"
+        <UButton
+          label="Clear"
+          color="sky"
+          variant="solid"
+          size="sm"
+          class="w-13 ml-2"
+          :disabled="disabledFilterButton"
+          @click="clearSearch"
+        />
+      </div>
+
+      <UTable
+        :columns="tableColumns"
+        :rows="listCountries"
+        :loading="pending"
+        :ui="{
+          th: { size: 'text-md', color: 'bg-slate-700 text-slate-200 dark:text-slate-200', padding: 'px-3 py-1.5' },
+          td: { padding: 'px-3 py-1.5', color: 'text-slate-700 dark:text-slate-700' }
+        }"
       >
-      <button @click="clearSearch" :disabled="!inputSearch">Clear</button>
+        <template #loading-state>
+          <div class="flex items-center justify-center h-32">
+            <i class="loader --6" />
+          </div>
+        </template>
 
-      <!--<button @click="refresh">refresh</button>-->
-      <div v-if="pending">
-        <p>Loading ...</p>
-      </div>
-      <div v-else>
-        <ul>
-          <li v-for="(country, index) in listCountries" :key="index">
-            <a :href="country.map" target="_blank">{{ country.name }}</a> 
-            - {{ country.capital }} [{{country.area}}/{{country.population}}] 
-            <span v-if="inputSearch" @click="filterByLang(country.languages)">
-              {{ country.languages }}
-            </span>
-          </li>
-        </ul>
-      </div>
+        <template #empty-state>
+          <span class="italic text-md mt-4">No one here!</span>
+        </template>
+
+        <template #languages-data="{ row }">
+          <span @click="filterByLang(row.languages)" class="text-blue-600 hover:text-sky-500 languages">{{ row.languages }}</span>
+        </template>
+      </UTable>
     </ClientOnly>
   </div>
 </template>
 
 <script setup>
+import { storeToRefs } from 'pinia'
+import { useCountriesStore } from '@/stores/countries'
+const countriesStore = useCountriesStore()
+
 const { getEnvValue } = useEnvs()
+const { hasCountries } = storeToRefs(countriesStore)
 const { getByRegion } = useRestCountries()
+
 
 const searchText = ref('')
 const searchLanguage = ref('')
@@ -50,6 +78,7 @@ const listCountries = ref([])
 const listCountriesClone = ref([])
 const pending = ref(true)
 const mapList = ref([])
+const filtered = ref(false)
 
 // Head
 useHead({
@@ -60,6 +89,25 @@ useHead({
   link: [{ rel: 'canonical', href: `${getEnvValue('baseUrl')}/search` }],
 })
 
+const tableColumns = [
+  {
+    key: 'id',
+    label: 'ID'
+  },
+  {
+    key: 'name',
+    label: 'Name'
+  },
+  {
+    key: 'capital',
+    label: 'Capital'
+  },
+  {
+    key: 'languages',
+    label: 'Languages'
+  }
+]
+
 const getCountries = async () => {
   const result = await getByRegion('america')
 
@@ -67,7 +115,9 @@ const getCountries = async () => {
   listCountries.value = result.data.value
   listCountriesClone.value = result.data.value
 
-  if (listCountriesClone.value) mountMap()
+  if (listCountriesClone.value) {
+    mountMap()
+  }
 }
 
 getCountries()
@@ -96,6 +146,8 @@ const mountMap = () => {
         mapList.value[1].data.push(newItem)
       }
     })
+
+    countriesStore.setCountries(mapList.value)
   }
 }
 
@@ -107,11 +159,20 @@ const filteredData = () => {
 
 const filterByLang = (lang) => {
   if (lang !== searchLanguage.value) {
+    filtered.value = true
     searchLanguage.value = lang
     const text = lang.toLowerCase() 
     listCountries.value = listCountriesClone.value.filter(item => item.languages.toLowerCase().includes(text))
   }
 }
+
+const disabledFilterButton = computed(() => {
+  if (!inputSearch.value && !filtered.value) {
+    return true
+  } else if (filtered.value) {
+    return false
+  }
+})
 
 const handleInput = (debounceDelay = 300) => {
   clearTimeout(debounceTimeout.value)
@@ -132,19 +193,15 @@ const clearSearch = () => {
   listCountries.value = listCountriesClone.value
   inputSearch.value = false
   languageSearch.value = false
+  filtered.value = false
   searchText.value = ''
   searchLanguage.value = ''
 }
 </script>
 
 <style lang="scss" scoped>
-.map-link {
-  font-size: 15px;
-  color: blue;
-  text-decoration: underline;
-
+.languages {
   &:hover {
-    color: green;
     cursor: pointer;
   }
 }

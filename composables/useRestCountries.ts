@@ -17,7 +17,7 @@ export default () => {
 
       const result = await useFetch(newUrl, {
         transform(data: Record<string, any>[]): Record<string, any>[] {
-          return data.map(country => {
+          return data.map((country, index) => {
             let language = ''
 
             for (const lang in country.languages) {
@@ -25,6 +25,7 @@ export default () => {
             }
 
             return {
+              id: index + 1,
               name: country.name.common,
               capital: country.capital[0],
               map: country.maps.googleMaps,
