@@ -6,45 +6,40 @@
     :timezone="timezone"
     :enable-time-picker="false"
     :disabled="false"
+    :max-date="new Date()"
     required
     text-input
-    @closed="showError"
-    @cleared="showError"
+    @closed="updateValue"
+    @cleared="updateValue"
     @update:model-value="updateValue"
   />
   <p
-    v-if="hasError"
+    v-if="errors.length"
     class="mt-2 text-red-500 dark:text-red-400 text-sm"
   >
-    Required
+    {{ errors[0].message }}
   </p>
 </template>
 
 <script setup>
 const props = defineProps({
-  value: Date
+  value: Date,
+  errors: {
+    type: Array,
+    default: () => {
+      return []
+    }
+  }
 })
 
 const emit = defineEmits(['change-value'])
-
 
 
 const date = ref(null)
 const timezone = ref('America/Sao_Paulo')
 const flow = ref(['month', 'year', 'calendar'])
 
-const hasError = ref(false)
-
-const updateValue = (value) => {
-  showError()
-}
-const showError = () => {
-  if (!date.value || !(date.value instanceof Date && !isNaN(date.value))) {
-    hasError.value = true
-  } else {
-    hasError.value = false
-  }
-
+const updateValue = () => {
   emit('change-value', date.value)
 }
 </script>

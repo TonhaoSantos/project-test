@@ -18,6 +18,7 @@
       >
         <Date
           :value="state.birthDate"
+          :errors="errorDate"
           @change-value="changeDateValue"
         />
       </UFormGroup>
@@ -149,8 +150,6 @@
           size="sm"
           type="text"
           v-model="state.zipcode"
-          @accept="onAccept"
-          @complete="onComplete"
           placeholder="Enter your zip code"
           class="mt-2 changed-input-color"
         />
@@ -213,7 +212,7 @@
           />
         </div>
       </UFormGroup>
-      
+
       <UButton
         label="Submit"
         color="sky"
@@ -221,7 +220,7 @@
         size="md"
         block
         class="mt-6"
-        :disabled="validForm"
+        :disabled="validForm || !state.birthDate || errorDate.length"
         @click="isOpen = true"
       />
 
@@ -248,6 +247,7 @@
         <p class="font-bold text-xl mb-2 text-sky-500">The data provided was:</p>
 
         <ul>
+          <li>Birth date: {{ dateFormated }}</li>
           <li>Full name: {{ state.fullname }}</li>
           <li>Document: {{ state.document }}</li>
           <li>Pet Species: {{ state.specie }}</li>
@@ -317,6 +317,8 @@ const state = reactive({
     uf: ''
   }
 })
+
+const errorDate = ref([])
 const viaCepInvalid = ref(false)
 const hasAddress = ref(false)
 const isOpen = ref(false)
@@ -365,9 +367,23 @@ const formatedAddress = computed(() => {
   }
 })
 
+const dateFormated = computed(() => {
+  var day = state.birthDate.getDate();
+  var month = state.birthDate.getMonth() + 1
+  var year = state.birthDate.getFullYear()
+
+  if (day < 10) {
+    day = '0' + day
+  }
+  if (month < 10) {
+    month = '0' + month
+  }
+
+  return `${day}/${month}/${year}`
+})
+
 const validate = (state) => {
   const errors = []
-  if (!state.birthDate || !(state.birthDate instanceof Date && !isNaN(state.birthDate))) errors.push({ path: 'birthDate', message: 'Required' })
   if (!state.fullname || !validateWordCount(state.fullname, 2, 'gte')) errors.push({ path: 'fullname', message: 'Required' })
   if (!state.document || !isCPF(state.document)) errors.push({ path: 'document', message: 'Required' })
   if (!state.specie) errors.push({ path: 'specie', message: 'Required' })
@@ -392,6 +408,25 @@ const submit = async (event) => {
 
 const changeDateValue = (value) => {
   state.birthDate = value
+  errorDate.value = []
+
+  if (state.birthDate) {
+    const today = new Date()
+    const currentDate = new Date(state.birthDate)
+    const differenceInYears = today.getFullYear() - currentDate.getFullYear()
+    const positiveNumber = Math.abs(differenceInYears)
+    console.log(positiveNumber, positiveNumber < 18 || positiveNumber > 65)
+    if (positiveNumber < 18 || positiveNumber > 65) {
+      errorDate.value.push({ path: 'birthDate', message: 'Age allowed must be between 18 years (minimum) and 65 years (maximum)' })
+    } else {
+      errorDate.value = []
+    }
+  } else if (!state.birthDate || !(state.birthDate instanceof Date && !isNaN(state.birthDate))) {
+    errorDate.value.push({ path: 'birthDate', message: 'Required' })
+  } else {
+    errorDate.value = []
+  }
+  console.log(state.birthDate)
 }
 
 watch(computedState, async (newValue, oldValue) => {
