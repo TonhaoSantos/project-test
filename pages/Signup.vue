@@ -15,7 +15,7 @@
         name="birthDate"
         class="changed-input-color"
         required
-      >-- {{ state.birthDate }} --
+      >
         <Date
           :value="state.birthDate"
           @change-value="changeDateValue"
@@ -309,7 +309,7 @@ const state = reactive({
   breed: '',
   breedOther: '',
   monthlyIncome: 1000.00,
-  zipcode: '08240210',
+  zipcode: '',
   address: {
     cep: '',
     logradouro: '',
