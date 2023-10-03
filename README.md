@@ -112,3 +112,16 @@ yarn preview
 # bun
 bun run preview
 ```
+
+## Envs
+
+To test locally you need to create a `.env` file and insert this content:
+
+```
+NUXT_PUBLIC_APP_NAME=Project Test
+NUXT_PUBLIC_BASE_URL=http://localhost:3000
+NUXT_PUBLIC_DOMAIN=domain.com
+NUXT_PUBLIC_API_REST_COUNTRIES=https://restcountries.com
+NUXT_PUBLIC_API_REST_COUNTRIES_VERSION=v3.1
+NUXT_PUBLIC_API_REST_VIA_CEP=https://viacep.com.br/ws
+```
