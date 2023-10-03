@@ -148,7 +148,6 @@
           variant="outline"
           size="sm"
           type="text"
-          v-imask="mask"
           v-model="state.zipcode"
           @accept="onAccept"
           @complete="onComplete"
