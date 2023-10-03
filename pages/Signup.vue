@@ -7,8 +7,21 @@
     <UForm
       :validate="validate"
       :state="state"
-      class="flex flex-col w-1/2 mb-10 gap-y-5"
+      class="flex flex-col flex-wrap w-full sm:w-1/2 md:w-1/3 mb-10 gap-y-5"
     >
+      
+      <UFormGroup
+        label="Birth date"
+        name="birthDate"
+        class="changed-input-color"
+        required
+      >-- {{ state.birthDate }} --
+        <Date
+          :value="state.birthDate"
+          @change-value="changeDateValue"
+        />
+      </UFormGroup>
+
       <UFormGroup
         label="Full Name"
         name="fullname"
@@ -271,10 +284,8 @@
 <script setup>
 import { validateWordCount } from '../utils/index'
 import { isCPF, isCEP } from 'brazilian-values'
-import { IMaskDirective } from 'vue-imask'
 
 import { useLoginStore } from '@/stores/login'
-import { has } from '@amcharts/amcharts5/.internal/core/util/Array';
 const loginStore = useLoginStore()
 
 const { getAddress } = useViaCep()
@@ -290,13 +301,8 @@ useHead({
   link: [{ rel: 'canonical', href: `${getEnvValue('baseUrl')}/signin` }],
 })
 
-const vImask = {
-  beforeMount: (el) => {
-    el = IMaskDirective
-  }
-}
-
 const state = reactive({
+  birthDate: null,
   fullname: '',
   document: '',
   specie: '',
@@ -341,10 +347,6 @@ const petBreed = {
     { label: 'Other', value: 'other' }
   ]
 }
-const mask = {
-  mask: '{8}000000',
-  lazy: false
-}
 
 
 const validForm = computed(() => {
@@ -364,16 +366,9 @@ const formatedAddress = computed(() => {
   }
 })
 
-const onAccept = (e) => {
-  // console.log('accept', maskRef, maskRef.value);
-}
-const onComplete = (e) => {
-  // console.log('complete', maskRef, maskRef.unmaskedValue);
-}
-
-
 const validate = (state) => {
   const errors = []
+  if (!state.birthDate || !(state.birthDate instanceof Date && !isNaN(state.birthDate))) errors.push({ path: 'birthDate', message: 'Required' })
   if (!state.fullname || !validateWordCount(state.fullname, 2, 'gte')) errors.push({ path: 'fullname', message: 'Required' })
   if (!state.document || !isCPF(state.document)) errors.push({ path: 'document', message: 'Required' })
   if (!state.specie) errors.push({ path: 'specie', message: 'Required' })
@@ -394,6 +389,10 @@ const submit = async (event) => {
     isOpen.value = false
     navigateTo('/system/search')
   }, 2000)
+}
+
+const changeDateValue = (value) => {
+  state.birthDate = value
 }
 
 watch(computedState, async (newValue, oldValue) => {

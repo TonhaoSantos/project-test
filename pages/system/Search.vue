@@ -36,6 +36,7 @@
         :rows="listCountries"
         :loading="pending"
         :ui="{
+          wrapper: 'w-full h-1/4',
           th: { size: 'text-md', color: 'bg-slate-700 text-slate-200 dark:text-slate-200', padding: 'px-3 py-1.5' },
           td: { padding: 'px-3 py-1.5', color: 'text-slate-700 dark:text-slate-700' }
         }"

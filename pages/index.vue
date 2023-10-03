@@ -12,10 +12,11 @@
       <li>Nuxt UI</li>
       <li>Other customizations, libs and external tools can be used at will. The following were used:
         <ul class="list-disc list-inside ml-6">
+          <li><a href="https://pinia.vuejs.org/" targe="_black" class="text-blue-600 hover:text-sky-500">pinia</a></li>
           <li><a href="https://www.npmjs.com/package/@vlalg-nimbus/magic-consolelog" targe="_black" class="text-blue-600 hover:text-sky-500">magic-consolelog</a></li>
           <li><a href="https://www.amcharts.com/" targe="_black" class="text-blue-600 hover:text-sky-500">amCharts</a></li>
           <li><a href="https://github.com/VitorLuizC/brazilian-values#isCPF" targe="_black" class="text-blue-600 hover:text-sky-500">Brazilian Values</a></li>
-          <li><a href="https://github.com/vuejs-tips/vue-the-mask" targe="_black" class="text-blue-600 hover:text-sky-500">vue-the-mask</a></li>
+          <li><a href="https://vue3datepicker.com/" targe="_black" class="text-blue-600 hover:text-sky-500">@vuepic/vue-datepicker</a></li>
         </ul>
       </li>
     </ul>

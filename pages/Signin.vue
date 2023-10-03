@@ -4,7 +4,7 @@
 
     <p class="mt-3 mb-10">To login, enter the details below.</p>
 
-    <div class="w-1/2 mb-10">
+    <div class="flex flex-col flex-wrap w-full sm:w-1/2 md:w-1/3 mb-10">
       <UInput
         color="sky"
         variant="outline"
@@ -55,7 +55,7 @@ useHead({
   link: [{ rel: 'canonical', href: `${getEnvValue('baseUrl')}/signin` }],
 })
 
-const email = ref('asdas')
+const email = ref('')
 const password = ref('')
 
 const validForm = computed(() => {

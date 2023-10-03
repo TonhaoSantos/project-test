@@ -45,7 +45,6 @@ const { menuType } = defineProps({
 })
 
 const menuList = computed(() => {
-  console.log(hasCountries.value)
   if (menuType === 'site' && !isLoggedIn.value) {
     return siteMenu
   } else {
