@@ -1,11 +1,10 @@
 <template>
-  <div class="flex flex-col flex-wrap justify-left items-left w-full mb-10">
-    <h1 class="text-5xl font-black mb-12">
-      Search
-      <span v-if="hasCountries" class="text-sm">({{ listCountries.length }} items)</span>
-    </h1>
-
-    <ClientOnly>
+  <ClientOnly>
+    <div class="flex flex-col flex-wrap justify-left items-left w-full mb-10">
+      <h1 class="text-5xl font-black mb-12">
+        Search
+        <span v-if="hasCountries" class="text-sm">({{ listCountries.length }} items)</span>
+      </h1>
       <div class="flex flex-row flex-no-wrap justify-left items-start w-full mb-4">
         <UInput
           v-if="!pending"
@@ -30,7 +29,7 @@
           @click="clearSearch"
         />
       </div>
-
+      {{ pending }}
       <UTable
         :columns="tableColumns"
         :rows="listCountries"
@@ -38,7 +37,7 @@
         :ui="{
           wrapper: 'w-full h-1/4',
           th: { size: 'text-md', color: 'bg-slate-700 text-slate-200 dark:text-slate-200', padding: 'px-3 py-1.5' },
-          td: { padding: 'px-3 py-1.5', color: 'text-slate-700 dark:text-slate-700' }
+          td: { padding: 'px-3 py-1.5', color: 'text-slate-700 dark:text-slate-700' },
         }"
       >
         <template #loading-state>
@@ -52,152 +51,172 @@
         </template>
 
         <template #languages-data="{ row }">
-          <span @click="filterByLang(row.languages)" class="text-blue-600 hover:text-sky-500 languages">{{ row.languages }}</span>
+          <span @click="filterByLang(row.languages)" class="text-blue-600 hover:text-sky-500 languages">{{
+            row.languages
+          }}</span>
         </template>
       </UTable>
-    </ClientOnly>
-  </div>
+    </div>
+  </ClientOnly>
 </template>
 
 <script setup>
-import { storeToRefs } from 'pinia'
-import { useCountriesStore } from '@/stores/countries'
-const countriesStore = useCountriesStore()
+import { onMounted } from 'vue';
+import { storeToRefs } from 'pinia';
+import { useCountriesStore } from '@/stores/countries';
+const countriesStore = useCountriesStore();
 
-const { getEnvValue } = useEnvs()
-const { hasCountries } = storeToRefs(countriesStore)
-const { getByRegion } = useRestCountries()
+const { $api } = useNuxtApp();
 
+const { getEnvValue } = useEnvs();
+const { hasCountries } = storeToRefs(countriesStore);
 
-const searchText = ref('')
-const searchLanguage = ref('')
-const debounceTimeout = ref(null)
-const inputSearch = ref(false)
-const languageSearch = ref(false)
+const searchText = ref('');
+const searchLanguage = ref('');
+const debounceTimeout = ref(null);
+const inputSearch = ref(false);
+const languageSearch = ref(false);
 
-const listCountries = ref([])
-const listCountriesClone = ref([])
-const pending = ref(true)
-const mapList = ref([])
-const filtered = ref(false)
+const listCountries = ref([]);
+const listCountriesClone = ref([]);
+const pending = ref(true);
+const mapList = ref([]);
+const filtered = ref(false);
 
 // Head
 useHead({
   title: 'Search',
-  meta: [
-    { name: 'description', content: 'Search page description' }
-  ],
+  meta: [{ name: 'description', content: 'Search page description' }],
   link: [{ rel: 'canonical', href: `${getEnvValue('baseUrl')}/search` }],
-})
+});
 
 const tableColumns = [
   {
     key: 'id',
-    label: 'ID'
+    label: 'ID',
   },
   {
     key: 'name',
-    label: 'Name'
+    label: 'Name',
   },
   {
     key: 'capital',
-    label: 'Capital'
+    label: 'Capital',
   },
   {
     key: 'languages',
-    label: 'Languages'
-  }
-]
+    label: 'Languages',
+  },
+];
 
 const getCountries = async () => {
-  const result = await getByRegion('america')
+  const { data: result, pending: resultPending, error } = await $api.restCountries.getByRegion('america');
 
-  pending.value = result.pending.value
-  listCountries.value = result.data.value
-  listCountriesClone.value = result.data.value
+  const newData = await asyncMapPromise(result.value, (country, index) => {
+    let language = '';
+
+    for (const lang in country.languages) {
+      language = country.languages[lang];
+    }
+
+    return {
+      id: index + 1,
+      name: country.name.common,
+      capital: country.capital[0],
+      map: country.maps.googleMaps,
+      languages: language,
+      area: `${country.area}`,
+      population: `${country.population}`,
+      countryCode: `${country.cca2}`,
+      continents: `${country.continents}`,
+    };
+  });
+
+  pending.value = resultPending.value;
+  listCountries.value = newData;
+  listCountriesClone.value = newData;
 
   if (listCountriesClone.value) {
-    mountMap()
+    mountMap();
   }
-}
-
-getCountries()
+};
+getCountries();
 
 const mountMap = () => {
-  const items = listCountriesClone.value
+  const items = listCountriesClone.value;
 
   mapList.value = [
     {
-      "name": "North America",
-      "data": []
+      name: 'North America',
+      data: [],
     },
     {
-      "name": "South America",
-      "data": []
-    }
-  ]
+      name: 'South America',
+      data: [],
+    },
+  ];
 
   if (items.length) {
-    items.forEach(country => {
-      const newItem = { ...country, id: country.countryCode.toUpperCase() }
+    items.forEach((country) => {
+      const newItem = { ...country, id: country.countryCode.toUpperCase() };
 
-      if (country.continents === "North America") {
-        mapList.value[0].data.push(newItem)
+      if (country.continents === 'North America') {
+        mapList.value[0].data.push(newItem);
       } else {
-        mapList.value[1].data.push(newItem)
+        mapList.value[1].data.push(newItem);
       }
-    })
+    });
 
-    countriesStore.setCountries(mapList.value)
+    countriesStore.setCountries(mapList.value);
   }
-}
+};
 
 const filteredData = () => {
-  const text = searchText.value.toLowerCase()
-  
-  listCountries.value = listCountriesClone.value.filter(item => item.name.toLowerCase().includes(text))
-}
+  const text = searchText.value.toLowerCase();
+
+  listCountries.value = listCountriesClone.value.filter((item) => item.name.toLowerCase().includes(text));
+};
 
 const filterByLang = (lang) => {
   if (lang !== searchLanguage.value) {
-    filtered.value = true
-    searchLanguage.value = lang
-    const text = lang.toLowerCase() 
-    listCountries.value = listCountriesClone.value.filter(item => item.languages.toLowerCase().includes(text))
+    filtered.value = true;
+    searchLanguage.value = lang;
+    const text = lang.toLowerCase();
+    listCountries.value = listCountriesClone.value.filter((item) => item.languages.toLowerCase().includes(text));
   }
-}
+};
 
 const disabledFilterButton = computed(() => {
   if (!inputSearch.value && !filtered.value) {
-    return true
+    return true;
   } else if (filtered.value) {
-    return false
+    return false;
   }
-})
+});
 
 const handleInput = (debounceDelay = 300) => {
-  clearTimeout(debounceTimeout.value)
+  clearTimeout(debounceTimeout.value);
 
   if (!searchText.value) {
-    clearSearch()
+    clearSearch();
   } else {
-    inputSearch.value = true
+    inputSearch.value = true;
 
     // Debounce
     debounceTimeout.value = setTimeout(() => {
-      filteredData()
-    }, debounceDelay)
+      filteredData();
+    }, debounceDelay);
   }
-}
+};
 
 const clearSearch = () => {
-  listCountries.value = listCountriesClone.value
-  inputSearch.value = false
-  languageSearch.value = false
-  filtered.value = false
-  searchText.value = ''
-  searchLanguage.value = ''
-}
+  listCountries.value = listCountriesClone.value;
+  inputSearch.value = false;
+  languageSearch.value = false;
+  filtered.value = false;
+  searchText.value = '';
+  searchLanguage.value = '';
+};
 </script>
 
 <style lang="scss" scoped>

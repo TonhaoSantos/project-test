@@ -4,31 +4,12 @@
 
     <p class="mt-3 mb-10">To register, provide all the information below.</p>
 
-    <UForm
-      :validate="validate"
-      :state="state"
-      class="flex flex-col flex-wrap w-full sm:w-1/2 md:w-1/3 mb-10 gap-y-5"
-    >
-      
-      <UFormGroup
-        label="Birth date"
-        name="birthDate"
-        class="changed-input-color"
-        required
-      >
-        <Date
-          :value="state.birthDate"
-          :errors="errorDate"
-          @change-value="changeDateValue"
-        />
+    <UForm :validate="validate" :state="state" class="flex flex-col flex-wrap w-full sm:w-1/2 md:w-1/3 mb-10 gap-y-5">
+      <UFormGroup label="Birth date" name="birthDate" class="changed-input-color" required>
+        <Date :value="state.birthDate" :errors="errorDate" @change-value="changeDateValue" />
       </UFormGroup>
 
-      <UFormGroup
-        label="Full Name"
-        name="fullname"
-        class="changed-input-color"
-        required
-      >
+      <UFormGroup label="Full Name" name="fullname" class="changed-input-color" required>
         <UInput
           color="sky"
           variant="outline"
@@ -40,12 +21,7 @@
         />
       </UFormGroup>
 
-      <UFormGroup
-        label="Document"
-        name="document"
-        class="changed-input-color"
-        required
-      >
+      <UFormGroup label="Document" name="document" class="changed-input-color" required>
         <UInput
           color="sky"
           variant="outline"
@@ -58,12 +34,7 @@
       </UFormGroup>
 
       <div class="flex flex-row flex-no-wrap justify-center items-center space-x-4 w-full">
-        <UFormGroup
-          label="Pet species"
-          name="specie"
-          class="grow changed-input-color"
-          required
-        >
+        <UFormGroup label="Pet species" name="specie" class="grow changed-input-color" required>
           <USelect
             color="sky"
             variant="outline"
@@ -73,13 +44,8 @@
             class="mt-2 changed-input-color"
           />
         </UFormGroup>
-        
-        <UFormGroup
-          label="Pet breed"
-          name="breed"
-          class="grow changed-input-color"
-          required
-        >
+
+        <UFormGroup label="Pet breed" name="breed" class="grow changed-input-color" required>
           <USelect
             color="sky"
             variant="outline"
@@ -91,7 +57,7 @@
           />
         </UFormGroup>
       </div>
-      
+
       <UFormGroup
         v-if="state.specie && state.breed === 'other'"
         label="Other"
@@ -110,13 +76,7 @@
         />
       </UFormGroup>
 
-      
-      <UFormGroup
-        label="Monthly income"
-        name="monthlyIncome"
-        class="changed-input-color"
-        required
-      >
+      <UFormGroup label="Monthly income" name="monthlyIncome" class="changed-input-color" required>
         <UInput
           color="sky"
           variant="outline"
@@ -136,13 +96,7 @@
         </UInput>
       </UFormGroup>
 
-      
-      <UFormGroup
-        label="Zip code"
-        name="zipcode"
-        class="changed-input-color"
-        required
-      >
+      <UFormGroup label="Zip code" name="zipcode" class="changed-input-color" required>
         <UInput
           ref="el"
           color="sky"
@@ -155,13 +109,7 @@
         />
       </UFormGroup>
 
-      <UFormGroup
-        v-if="hasAddress"
-        label="Address"
-        name="addrees"
-        class="changed-input-color"
-        required
-      >
+      <UFormGroup v-if="hasAddress" label="Address" name="addrees" class="changed-input-color" required>
         <div class="flex flex-row flex-no-wrap justify-center items-center space-x-4 w-full">
           <UInput
             ref="el"
@@ -237,13 +185,11 @@
         :ui="{
           divide: 'divide-y divide-gray-100 dark:divide-gray-800',
           background: 'bg-slate-700 dark:bg-slate-700',
-          header: { padding: 'px-2 py-4' }
+          header: { padding: 'px-2 py-4' },
         }"
       >
-        <template #header>
-          DATA CONFIRMATION
-        </template>
-        
+        <template #header> DATA CONFIRMATION </template>
+
         <p class="font-bold text-xl mb-2 text-sky-500">The data provided was:</p>
 
         <ul>
@@ -251,29 +197,18 @@
           <li>Full name: {{ state.fullname }}</li>
           <li>Document: {{ state.document }}</li>
           <li>Pet Species: {{ state.specie }}</li>
-          <li>Pet Breed: <span v-if="state.breedOther">{{ state.breedOther }}</span><span v-else>{{ state.breed }}</span></li>
+          <li>
+            Pet Breed: <span v-if="state.breedOther">{{ state.breedOther }}</span
+            ><span v-else>{{ state.breed }}</span>
+          </li>
 
           <li>Mnthly income: {{ state.monthlyIncome }}</li>
           <li>Address: {{ formatedAddress }}</li>
         </ul>
 
         <div class="flex flex-row justify-center items-center gap-x-4 mt-5 w-full">
-          <UButton
-            color="red"
-            variant="solid"
-            size="md"
-            label="Cancel"
-            :disabled="sending"
-            @click="isOpen = false"
-          />
-          <UButton
-            color="green"
-            variant="solid"
-            size="md"
-            label="Confirm"
-            :disabled="sending"
-            @click="submit"
-          />
+          <UButton color="red" variant="solid" size="md" label="Cancel" :disabled="sending" @click="isOpen = false" />
+          <UButton color="green" variant="solid" size="md" label="Confirm" :disabled="sending" @click="submit" />
         </div>
       </UCard>
     </UModal>
@@ -281,24 +216,22 @@
 </template>
 
 <script setup>
-import { validateWordCount } from '../utils/index'
-import { isCPF, isCEP } from 'brazilian-values'
+import { validateWordCount } from '../utils/index';
+import { isCPF, isCEP } from 'brazilian-values';
 
-import { useLoginStore } from '@/stores/login'
-const loginStore = useLoginStore()
+import { useLoginStore } from '@/stores/login';
+const loginStore = useLoginStore();
 
-const { getAddress } = useViaCep()
+const { $api } = useNuxtApp();
 
-const { getEnvValue } = useEnvs()
+const { getEnvValue } = useEnvs();
 
 // Head
 useHead({
   title: 'Signin',
-  meta: [
-    { name: 'description', content: 'Signin page description' }
-  ],
+  meta: [{ name: 'description', content: 'Signin page description' }],
   link: [{ rel: 'canonical', href: `${getEnvValue('baseUrl')}/signin` }],
-})
+});
 
 const state = reactive({
   birthDate: null,
@@ -307,27 +240,27 @@ const state = reactive({
   specie: '',
   breed: '',
   breedOther: '',
-  monthlyIncome: 1000.00,
+  monthlyIncome: 1000.0,
   zipcode: '',
   address: {
     cep: '',
     logradouro: '',
     bairro: '',
     localidade: '',
-    uf: ''
-  }
-})
+    uf: '',
+  },
+});
 
-const errorDate = ref([])
-const viaCepInvalid = ref(false)
-const hasAddress = ref(false)
-const isOpen = ref(false)
-const sending = ref(false)
+const errorDate = ref([]);
+const viaCepInvalid = ref(false);
+const hasAddress = ref(false);
+const isOpen = ref(false);
+const sending = ref(false);
 const petSpecies = [
   { label: 'Enter your pet species', value: '' },
   { label: 'Cat', value: 'cat' },
-  { label: 'Dog', value: 'dog' }
-]
+  { label: 'Dog', value: 'dog' },
+];
 const petBreed = {
   cat: [
     { label: 'Enter your pet breed', value: '' },
@@ -336,7 +269,7 @@ const petBreed = {
     { label: 'Siamese', value: 'siamese' },
     { label: 'Persa', value: 'persa' },
     { label: 'Bengal', value: 'bengal' },
-    { label: 'Other', value: 'other' }
+    { label: 'Other', value: 'other' },
   ],
   dog: [
     { label: 'Enter your pet breed', value: '' },
@@ -345,124 +278,127 @@ const petBreed = {
     { label: 'Shih Tzu', value: 'shihTzu' },
     { label: 'Chow-chow', value: 'chowChow' },
     { label: 'Zwergspitz', value: 'Zwergspitz' },
-    { label: 'Other', value: 'other' }
-  ]
-}
-
+    { label: 'Other', value: 'other' },
+  ],
+};
 
 const validForm = computed(() => {
-  return !!validate(state).length
-})
+  return !!validate(state).length;
+});
 const computedState = computed(() => {
   return Object.assign({}, state);
-})
+});
 const formatedAddress = computed(() => {
   if (!hasAddress.value) {
-    return ''
+    return '';
   } else {
-    const currentAddress = state.address
-    const newNeighborhood = (currentAddress.bairro) ? `, ${currentAddress.bairro}` : ''
+    const currentAddress = state.address;
+    const newNeighborhood = currentAddress.bairro ? `, ${currentAddress.bairro}` : '';
 
-    return `${currentAddress.logradouro}${newNeighborhood} - ${currentAddress.cep}, ${currentAddress.localidade} - ${currentAddress.uf}`
+    return `${currentAddress.logradouro}${newNeighborhood} - ${currentAddress.cep}, ${currentAddress.localidade} - ${currentAddress.uf}`;
   }
-})
+});
 
 const dateFormated = computed(() => {
   var day = state.birthDate.getDate();
-  var month = state.birthDate.getMonth() + 1
-  var year = state.birthDate.getFullYear()
+  var month = state.birthDate.getMonth() + 1;
+  var year = state.birthDate.getFullYear();
 
   if (day < 10) {
-    day = '0' + day
+    day = '0' + day;
   }
   if (month < 10) {
-    month = '0' + month
+    month = '0' + month;
   }
 
-  return `${day}/${month}/${year}`
-})
+  return `${day}/${month}/${year}`;
+});
 
 const validate = (state) => {
-  const errors = []
-  if (!state.fullname || !validateWordCount(state.fullname, 2, 'gte')) errors.push({ path: 'fullname', message: 'Required' })
-  if (!state.document || !isCPF(state.document)) errors.push({ path: 'document', message: 'Required' })
-  if (!state.specie) errors.push({ path: 'specie', message: 'Required' })
-  if (!state.breed) errors.push({ path: 'breed', message: 'Required' })
-  if (state.breed && state.breed === 'other' && !state.breedOther) errors.push({ path: 'breedOther', message: 'Required' })
-  if (!state.monthlyIncome || state.monthlyIncome < 1000.00) errors.push({ path: 'monthlyIncome', message: 'Required and greater then R$ 1000.00' })
-  if (!state.zipcode) errors.push({ path: 'zipcode', message: 'Required' })
-  if (!isCEP(state.zipcode) || viaCepInvalid.value) errors.push({ path: 'zipcode', message: 'zipcode is invalid' })
-  return errors
-}
+  const errors = [];
+  if (!state.fullname || !validateWordCount(state.fullname, 2, 'gte'))
+    errors.push({ path: 'fullname', message: 'Required' });
+  if (!state.document || !isCPF(state.document)) errors.push({ path: 'document', message: 'Required' });
+  if (!state.specie) errors.push({ path: 'specie', message: 'Required' });
+  if (!state.breed) errors.push({ path: 'breed', message: 'Required' });
+  if (state.breed && state.breed === 'other' && !state.breedOther)
+    errors.push({ path: 'breedOther', message: 'Required' });
+  if (!state.monthlyIncome || state.monthlyIncome < 1000.0)
+    errors.push({ path: 'monthlyIncome', message: 'Required and greater then R$ 1000.00' });
+  if (!state.zipcode) errors.push({ path: 'zipcode', message: 'Required' });
+  if (!isCEP(state.zipcode) || viaCepInvalid.value) errors.push({ path: 'zipcode', message: 'zipcode is invalid' });
+  return errors;
+};
 
 const submit = async (event) => {
-  sending.value = true
+  sending.value = true;
 
   setTimeout(() => {
-    loginStore.changeLogged(true)
-    sending.value = false
-    isOpen.value = false
-    navigateTo('/system/search')
-  }, 2000)
-}
+    loginStore.changeLogged(true);
+    sending.value = false;
+    isOpen.value = false;
+    navigateTo('/system/search');
+  }, 2000);
+};
 
 const changeDateValue = (value) => {
-  state.birthDate = value
-  errorDate.value = []
+  state.birthDate = value;
+  errorDate.value = [];
 
   if (state.birthDate) {
-    const today = new Date()
-    const currentDate = new Date(state.birthDate)
-    const differenceInYears = today.getFullYear() - currentDate.getFullYear()
-    const positiveNumber = Math.abs(differenceInYears)
-    console.log(positiveNumber, positiveNumber < 18 || positiveNumber > 65)
+    const today = new Date();
+    const currentDate = new Date(state.birthDate);
+    const differenceInYears = today.getFullYear() - currentDate.getFullYear();
+    const positiveNumber = Math.abs(differenceInYears);
+    console.log(positiveNumber, positiveNumber < 18 || positiveNumber > 65);
     if (positiveNumber < 18 || positiveNumber > 65) {
-      errorDate.value.push({ path: 'birthDate', message: 'Age allowed must be between 18 years (minimum) and 65 years (maximum)' })
+      errorDate.value.push({
+        path: 'birthDate',
+        message: 'Age allowed must be between 18 years (minimum) and 65 years (maximum)',
+      });
     } else {
-      errorDate.value = []
+      errorDate.value = [];
     }
   } else if (!state.birthDate || !(state.birthDate instanceof Date && !isNaN(state.birthDate))) {
-    errorDate.value.push({ path: 'birthDate', message: 'Required' })
+    errorDate.value.push({ path: 'birthDate', message: 'Required' });
   } else {
-    errorDate.value = []
+    errorDate.value = [];
   }
-  console.log(state.birthDate)
-}
+  console.log(state.birthDate);
+};
 
 watch(computedState, async (newValue, oldValue) => {
   if (newValue.specie !== oldValue.specie) {
-    state.breed = ''
-    state.breedOther = ''
+    state.breed = '';
+    state.breedOther = '';
   } else if (newValue.breed !== oldValue.breed) {
-    state.breedOther = ''
+    state.breedOther = '';
   } else if (newValue.zipcode !== oldValue.zipcode && newValue.zipcode && isCEP(newValue.zipcode)) {
-    const result = await getAddress(newValue.zipcode)
+    const { data: result, pending, error } = await $api.viaCep.getAddress(newValue.zipcode);
 
     if (objectHasKey(result.value, 'erro')) {
-      viaCepInvalid.value = true
-      hasAddress.value = false
+      viaCepInvalid.value = true;
+      hasAddress.value = false;
       state.address = {
         cep: '',
         logradouro: '',
         bairro: '',
         localidade: '',
-        uf: ''
-      }
+        uf: '',
+      };
     } else {
-      viaCepInvalid.value = false
-      hasAddress.value = true
+      viaCepInvalid.value = false;
+      hasAddress.value = true;
       state.address = {
         cep: result.value.cep,
         logradouro: result.value.logradouro,
         bairro: result.value.bairro,
         localidade: result.value.localidade,
-        uf: result.value.uf
-      }
+        uf: result.value.uf,
+      };
     }
   }
-})
+});
 </script>
 
-<style lang="scss" scoped>
-</style>
-
+<style lang="scss" scoped></style>

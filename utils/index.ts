@@ -53,3 +53,11 @@ export const validateWordCount = (text: string = '', requiredWordCount: number =
     return false
   }
 }
+
+export const asyncMapPromise = async (itens = [], callback) => {
+  if (!itens.length) return []
+  return Promise.all(itens.map(async (item, index, array) => {
+    const newItem = await callback(item, index, array)
+    return newItem
+  }))
+}
