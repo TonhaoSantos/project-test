@@ -30,6 +30,30 @@ class FetchFactory<T> {
     const result = await this.$fetch<T>(url, {
       method,
       body: data,
+      async onRequest(content) {
+        // Log request
+        console.log('[fetch request]', content)
+
+        return content
+      },
+      async onRequestError(content) {
+        // Log error
+        console.log('[fetch request error]', content)
+
+        return content
+      },
+      async onResponse(content) {
+        // Log response
+        console.log('[fetch response]', content)
+
+        return content
+      },
+      async onResponseError(content) {
+        // Log error
+        console.log('[fetch response error]', content)
+
+        return content
+      },
       ...fetchOptions
     })
 
